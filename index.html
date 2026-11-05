@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi proyecto de digitalización</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ff084a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+        .diamantina {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+            background-image: 
+                radial-gradient(circle, #ffffff 2.5px, transparent 2.5px),
+                radial-gradient(circle, #fffbbf 2px, transparent 2px),
+                radial-gradient(circle, #ffe3ec 3px, transparent 3px);
+            background-size: 60px 60px, 40px 40px, 70px 70px;
+            background-position: 0 0, 15px 20px, 35px 15px;
+            animation: destelloGlitter 0.4s infinite alternate ease-in-out;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,1));
+        }
+        @keyframes destelloGlitter {
+            0% { opacity: 0.3; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+        h1, h2 {
+            color: #ffffff; font-size: 2.5rem;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff007f, 0 0 30px #ff007f;
+            margin-bottom: 5px; transition: text-shadow 0.5s ease;
+        }
+        p { font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .seccion-superior, .seccion-inferior { max-width: 800px; text-align: center; margin-bottom: 20px; z-index: 1; }
+        .contenedor-juego { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 25px; width: 100%; max-width: 1200px; margin-bottom: 20px; z-index: 1; }
+        iframe { width: 700px; height: 450px; border: 4px solid #ffffff; border-radius: 20px; box-shadow: 0 0 20px #fff, 0 0 40px #ff007f; background-color: #fff; transition: box-shadow 0.5s ease; }
+        .bloque-lateral { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .imagen-lateral { width: 200px; height: 250px; border-radius: 16px; border: 4px solid white; box-shadow: 0 0 15px rgba(255,255,255,0.6); object-fit: cover; }
+        .controles-foto { display: flex; gap: 15px; }
+        .btn-flecha { background: rgba(255, 255, 255, 0.2); border: 2px solid white; color: white; border-radius: 50%; width: 35px; height: 35px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .btn-flecha:hover { background: white; color: #ff084a; transform: scale(1.1); }
+        .boton-musica { position: fixed; top: 20px; right: 20px; z-index: 10; background: rgba(255, 8, 74, 0.8); color: white; border: 2px solid white; padding: 10px 15px; font-size: 1rem; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 0 10px #fff, 0 0 20px #ff007f; transition: all 0.3s ease; }
+        .boton-musica:hover { transform: scale(1.05); background: #ffffff; color: #ff084a; box-shadow: 0 0 15px #fff; }
+        .panel-colores { position: fixed; top: 20px; left: 20px; z-index: 10; background: rgba(0, 0, 0, 0.4); padding: 10px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.3); display: flex; gap: 10px; align-items: center; }
+        .panel-colores span { font-weight: bold; font-size: 0.9rem; text-shadow: 1px 1px 2px black; }
+        .btn-color { width: 30px; height: 30px; border-radius: 50%; border: 2px solid white; cursor: pointer; transition: transform 0.2s ease; }
+        .btn-color:hover { transform: scale(1.2); }
+        .btn-rosa { background-color: #ff084a; }
+        .btn-azul { background-color: #0055ff; }
+        .btn-rojo { background-color: #cc0000; }
+        .btn-verde { background-color: #00aa50; }
+    </style>
+</head>
+<body>
+    <div class="diamantina"></div>
+    <audio id="musicaFondo" src="musica.mp3" loop></audio>
+    <button class="boton-musica" onclick="controlarMusica()">🎵 Música: APAGADA</button>
+    <div class="panel-colores">
+        <span>Fondo:</span>
+        <button class="btn-color btn-rosa" onclick="cambiarFondo('#ff084a', '#ff007f')"></button>
+        <button class="btn-color btn-azul" onclick="cambiarFondo('#0055ff', '#00d2ff')"></button>
+        <button class="btn-color btn-rojo" onclick="cambiarFondo('#cc0000', '#ff4d4d')"></button>
+        <button class="btn-color btn-verde" onclick="cambiarFondo('#00aa50', '#00ff88')"></button>
+    </div>
+    <div class="seccion-superior">
+        <h1>Mi pequeño amigo</h1>
+        <p> "Mi pequeño amigo" es una página web creada a partir del código HTML...</p>
+    </div>
+    <div class="contenedor-juego">
+        <div class="bloque-lateral">
+            <img id="fotoIzquierda" class="imagen-lateral" src="./imagenes/gato.jpg.jpg" onerror="this.src=fotosIzquierdas[indexIzq];">
+            <div class="controles-foto">
+                <button class="btn-flecha" onclick="cambiarFoto('izq', -1)">◀</button>
+                <button class="btn-flecha" onclick="cambiarFoto('izq', 1)">▶</button>
+            </div>
+        </div>
+        <iframe src=https://editor.p5js.org/Melina.12/full/k7pUsfqyN allow="autoplay" sandbox="allow-same-origin allow-scripts"></iframe>
+        <div class="bloque-lateral">
+            <img id="fotoDerecha" class="imagen-lateral" src="./imagenes/gato2.jpg" onerror="this.src=fotosDerechas[indexDer];">
+            <div class="controles-foto">
+                <button class="btn-flecha" onclick="cambiarFoto('der', -1)">◀</button>
+                <button class="btn-flecha" onclick="cambiarFoto('der', 1)">▶</button>
+            </div>
+        </div>
+    </div>
+    <div class="seccion-inferior">
+        <h2>Instrucciones</h2>
+        <p>Haz clic dentro del juego para empezar a controlar la diversión.</p>
+    </div>
+    <script>
+        var fotosIzquierdas = ["./imagenes/gato2.jpg", "https://picsum.photos"];
+        var fotosDerechas = ["./imagenes/gato.jpg.jpg", "https://picsum.photos"];
+        var indexIzq = 0; var indexDer = 0;
+
+        function cambiarFoto(lado, direccion) {
+            if (lado === 'izq') {
+                indexIzq = (indexIzq + direccion + fotosIzquierdas.length) % fotosIzquierdas.length;
+                document.getElementById('fotoIzquierda').src = fotosIzquierdas[indexIzq];
+            } else {
+                indexDer = (indexDer + direccion + fotosDerechas.length) % fotosDerechas.length;
+                document.getElementById('fotoDerecha').src = fotosDerechas[indexDer];
+            }
+        }
+
+        function controlarMusica() {
+            var reproductor = document.getElementById('musicaFondo');
+            var boton = document.querySelector('.boton-musica');
+            if (reproductor.paused) {
+                reproductor.play();
+                boton.innerHTML = "🎵 Música: ENCENDIDA";
+            } else {
+                reproductor.pause();
+                boton.innerHTML = "🎵 Música: APAGADA";
+            }
+        }
+
+        function cambiarFondo(colorFondo, colorNeon) {
+            document.body.style.backgroundColor = colorFondo;
+            var titulos = document.querySelectorAll('h1, h2');
+            titulos.forEach(function(t) {
+                t.style.textShadow = "0 0 10px #fff, 0 0 20px " + colorNeon + ", 0 0 30px " + colorNeon;
+            });
+            document.querySelector('iframe').style.boxShadow = "0 0 20px #fff, 0 0 40px " + colorNeon;
+        }
+    </script>
+</body>
+</html>
