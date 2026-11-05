@@ -75,9 +75,10 @@
     </div>
     <div class="seccion-superior">
         <h1>Mi pequeño amigo</h1>
-        <p> "Mi pequeño amigo" es una página web creada a partir del código HTML...</p>
+        <p> "Mi pequeño amigo" es una página web creada a partir del código HTML, su propósito es interactuar con el escenario que se muestra en pantalla...</p>
     </div>
     <div class="contenedor-juego">
+        <!-- ÁLBUM IZQUIERDO -->
         <div class="bloque-lateral">
             <img id="fotoIzquierda" class="imagen-lateral" src="./imagenes/gato.jpg.jpg" onerror="this.src=fotosIzquierdas[indexIzq];">
             <div class="controles-foto">
@@ -85,7 +86,8 @@
                 <button class="btn-flecha" onclick="cambiarFoto('izq', 1)">▶</button>
             </div>
         </div>
-        <iframe src=https://editor.p5js.org/Melina.12/full/k7pUsfqyN allow="autoplay" sandbox="allow-same-origin allow-scripts"></iframe>
+        <iframe src="https://editor.p5js.org/Melina.12/full/k7pUsfqyN"></iframe>
+        <!-- ÁLBUM DERECHO -->
         <div class="bloque-lateral">
             <img id="fotoDerecha" class="imagen-lateral" src="./imagenes/gato2.jpg" onerror="this.src=fotosDerechas[indexDer];">
             <div class="controles-foto">
@@ -98,9 +100,24 @@
         <h2>Instrucciones</h2>
         <p>Haz clic dentro del juego para empezar a controlar la diversión.</p>
     </div>
+
     <script>
-        var fotosIzquierdas = ["./imagenes/gato2.jpg", "https://picsum.photos"];
-        var fotosDerechas = ["./imagenes/gato.jpg.jpg", "https://picsum.photos"];
+        // AQUÍ AGREGAS TUS NUEVAS FOTOS. Solo pon una coma y el nombre de tu otra imagen:
+        var fotosIzquierdas = [
+            "./imagenes/gato.jpg", 
+            "./imagenes/gato4.jpg",
+            "./imagenes/gato3.jpg", // <--- Tu tercera foto local
+            "https://picsum.photos" // Respaldo de internet
+        ];
+
+        var fotosDerechas = [
+            "./imagenes/gato2.jpg", 
+            "./imagenes/gato5.jpg",
+            "./imagenes/gato4.jpg",
+            "./imagenes/gato3.jpg", // <--- Tu cuarta foto local
+            "https://picsum.photos" // Respaldo de internet
+        ];
+
         var indexIzq = 0; var indexDer = 0;
 
         function cambiarFoto(lado, direccion) {
